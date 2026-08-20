@@ -1,0 +1,58 @@
+{% load django_bootstrap5 %}
+
+<!doctype html>
+<html lang="'en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,
+                                    initial-scale=1,
+                                    shrink-to-fit=no">
+        <title>Learning Logs</title>
+
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+    </head>
+
+    <body>
+            <nav class="navbar navbar-expand-md navbar-light bg-light mb-4 border">
+                <a class="navbar-brand bg-info" href="{% url 'logs_app:index' %}">Home Page</a>
+                <button class="navbar-toggler" type="button " data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="False"  aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav me-auto">
+                        <li class="navbar-item">
+                            <a class="navbar-link" href="{% url 'logs_app:topics' %}">Topics</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto me-2">
+                        {% if user.is_authenticated %}
+                            <li class="navbar-item">
+                                <span class="navbar-text me-3">Hello, {{user.username}}</span>
+                            </li>
+                            <li class="navbar-item">
+                                <a class="navbar-link me-3" href="{% url 'users:logout' %}">Log Out</a>
+                            </li>
+                        {% else %}
+                            <li class="navbar-item me-3">
+                                <a class="navbar-link" href="{% url 'users:login' %}">Log In</a>
+                            </li>
+                            <li class="navbar-item me-2">
+                                <a class="navbar-link" href="{% url 'users:register' %}">Register</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+            <main role="main" class="container">
+                <div class="pb-2 mb-2 border-bottom">
+                    {% block page_header %}{% endblock page_header %}
+                </div>
+                <div>
+                    {% block content %}{% endblock content %}
+                </div>
+            </main>
+    </body>
+    
+</html>

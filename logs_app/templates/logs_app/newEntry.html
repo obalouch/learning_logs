@@ -1,0 +1,16 @@
+{% extends 'logs_app/base.html' %}
+{% load django_bootstrap5 %}
+{% block page_header %}
+    <h4 class="bg-info">
+        Add New Entry To : {{topic}}
+    </h4>
+{% endblock page_header %}
+
+{% block content %}
+<form action = "{% url 'logs_app:newEntry' topic.id %}" method = 'POST' class="form">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button name="submit" class="btn btn-primary">Add Entry</button>
+</form>
+
+{% endblock content %}

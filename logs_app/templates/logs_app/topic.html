@@ -1,0 +1,37 @@
+{% extends 'logs_app/base.html' %}
+
+
+
+{% block page_header %}
+
+<h3>{{topics}}</h3>
+
+{% endblock page_header %}
+
+{% block content%}
+
+<p>
+    <a class="btn btn-primary" href="{% url 'logs_app:newEntry' topics.id %}">Add New Entry &raquo;</a>
+</p>
+
+<ul>
+    {% for entry in entries %}
+        <div class="card mb-3">
+            <h4 class="card-header bg-info">
+                {{entry.add_date|date:'M d:Y H:i'}}
+                <small>
+                    <a href="{% url 'logs_app:edit_entry' entry.id %}" class="btn btn-primary btn-sm">
+                        Edit Entry &raquo;
+                    </a>
+                </small>
+            </h4>
+            <div class="card-body">
+                {{entry.text|linebreaks}}
+            </div>
+        </div>
+    {% empty %}
+        <p>No Entry has been add</p>    
+    {% endfor %}
+</ul>
+
+{% endblock content %}
