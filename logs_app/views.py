@@ -1,4 +1,4 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect , get_object_or_404
 from .models import Topic , Entry
 from .forms import TopicForm , EntryForm
 from django.contrib.auth.decorators import login_required
@@ -21,7 +21,7 @@ def topics(request) :
     return render(request,'logs_app/topics.html',context)
 @login_required
 def topic(request,topic_id) :
-    topic = Topic.objects.get(id=topic_id)
+    topic = get_object_or_404(Topic,id=topic_id)
     check_topic_owner(topic.owner , request.user) # line 12
     entries = topic.entry_set.order_by("-add_date")
     context = {'topics' : topic , 'entries' : entries}
